@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Admin · {{ service.name }} · QueueLess{% endblock %}
+{% block bodyclass %}page-admin{% endblock %}
+
+{% block content %}
+<section class="admin-page" data-slug="{{ service.slug }}">
+
+  <a class="back-link" href="{{ url_for('home') }}">&larr; All services</a>
+
+  <div class="admin-head">
+    <div>
+      <p class="eyebrow">Admin console</p>
+      <h1>{{ service.name }}</h1>
+    </div>
+    <div class="admin-stats">
+      <div class="stat-pill">
+        <span class="stat-value" id="statWaiting">0</span>
+        <span class="stat-label">In queue</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-value" id="statServed">0</span>
+        <span class="stat-label">Served today</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-value" id="statAvg">—</span>
+        <span class="stat-label">Avg. min / visit</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-grid">
+    <div class="now-serving-block">
+      <p class="block-label">Now serving</p>
+      <div class="ticket ticket--admin" id="servingTicket">
+        <div class="ticket-token" id="servingLabel">—</div>
+        <div class="ticket-perf"></div>
+        <div class="ticket-bottom">
+          <div class="ticket-stat">
+            <span class="ticket-stat-label">Waiting up next</span>
+            <span class="ticket-stat-value" id="upNextLabel">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="admin-actions">
+        <button id="callNextBtn" class="btn btn-primary btn-large">Call next</button>
+        <button id="skipBtn" class="btn btn-ghost btn-small">No-show, skip</button>
+      </div>
+    </div>
+
+    <div class="waiting-block">
+      <p class="block-label">Waiting <span id="waitingCountLabel">(0)</span></p>
+      <ul id="waitingList" class="stub-list">
+        <li class="stub-empty">Queue is empty.</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}{{ service.name }} · QueueLess{% endblock %}
+{% block bodyclass %}page-ticket{% endblock %}
+
+{% block content %}
+<section class="ticket-page" data-slug="{{ service.slug }}" data-prefix="{{ service.prefix }}">
+
+  <a class="back-link" href="{{ url_for('home') }}">&larr; All services</a>
+
+  <div class="ticket-page-head">
+    <p class="eyebrow">{{ service.name }}</p>
+    <h1 id="joinHeadline">Ready to join the queue?</h1>
+    <p class="hero-sub" id="joinSub">Tap join and we'll hand you a token. You can leave this
+      page open, or come back — your place is saved.</p>
+  </div>
+
+  <!-- Pre-join state -->
+  <div id="joinPanel" class="join-panel">
+    <button id="joinBtn" class="btn btn-primary btn-large">Join queue</button>
+    <p class="join-hint">Currently serving <strong id="joinNowServing">—</strong> ·
+      <span id="joinWaitingCount">0</span> people waiting</p>
+  </div>
+
+  <!-- Active ticket state -->
+  <div id="ticketPanel" class="ticket-panel hidden">
+    <div class="ticket ticket--live" id="liveTicket">
+      <div class="ticket-top">
+        <span class="ticket-service">{{ service.name }}</span>
+        <span class="ticket-status" id="statusBadge">Waiting</span>
+      </div>
+      <div class="ticket-token" id="tokenLabel">—</div>
+      <div class="ticket-perf"></div>
+      <div class="ticket-bottom">
+        <div class="ticket-stat">
+          <span class="ticket-stat-label">Ahead of you</span>
+          <span class="ticket-stat-value" id="peopleAhead">—</span>
+        </div>
+        <div class="ticket-stat">
+          <span class="ticket-stat-label">Est. wait</span>
+          <span class="ticket-stat-value" id="estWait">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-fill" id="progressFill"></div>
+      <span class="progress-dot" data-step="waiting"><i></i>Waiting</span>
+      <span class="progress-dot" data-step="almost"><i></i>Almost up</span>
+      <span class="progress-dot" data-step="next"><i></i>Next</span>
+      <span class="progress-dot" data-step="turn"><i></i>Your turn</span>
+    </div>
+
+    <p class="ticket-meta">Now serving <strong id="nowServingLive">—</strong> for this queue.</p>
+    <button id="leaveBtn" class="btn btn-ghost btn-small">Leave this queue</button>
+  </div>
+
+  <div class="history-block">
+    <p class="eyebrow">Queue history</p>
+    <ul id="historyList" class="history-list">
+      <li class="history-empty">No completed visits yet on this device.</li>
+    </ul>
+  </div>
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ticket.js') }}"></script>
+{% endblock %}

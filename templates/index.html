@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}QueueLess — Skip the line, keep the day{% endblock %}
+{% block bodyclass %}page-home{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Virtual queue management</p>
+    <h1>Skip&nbsp;the&nbsp;line.<br>Keep&nbsp;the&nbsp;day.</h1>
+    <p class="hero-sub">
+      Join any queue from your phone, watch your position move in real time,
+      and walk in only when your turn is close. No standing required.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn btn-primary">Find a queue</a>
+      <a href="{{ url_for('admin_page', slug='student-office') }}" class="btn btn-ghost">Open admin console</a>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="ticket ticket--hero">
+      <div class="ticket-top">
+        <span class="ticket-service">Student Office</span>
+        <span class="ticket-status ticket-status--next">You're next</span>
+      </div>
+      <div class="ticket-token">A047</div>
+      <div class="ticket-perf"></div>
+      <div class="ticket-bottom">
+        <div class="ticket-stat">
+          <span class="ticket-stat-label">Ahead of you</span>
+          <span class="ticket-stat-value">0</span>
+        </div>
+        <div class="ticket-stat">
+          <span class="ticket-stat-label">Est. wait</span>
+          <span class="ticket-stat-value">~2 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="section-head">
+    <p class="eyebrow">Live now</p>
+    <h2>Choose where you're headed</h2>
+  </div>
+
+  <div class="service-grid">
+    {% for s in services %}
+    <a class="service-card" href="{{ url_for('queue_page', slug=s.slug) }}">
+      <div class="service-card-top">
+        <span class="service-prefix">{{ s.prefix }}</span>
+        <span class="service-waiting">{{ s.waiting_count }} waiting</span>
+      </div>
+      <h3>{{ s.name }}</h3>
+      <div class="service-perf"></div>
+      <div class="service-card-bottom">
+        <span class="service-now-label">Now serving</span>
+        <span class="service-now-value">{{ s.now_serving }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="how" class="how">
+  <div class="section-head">
+    <p class="eyebrow">The flow</p>
+    <h2>Eight steps, zero standing</h2>
+  </div>
+  <ol class="flow">
+    <li><span class="flow-index">01</span><span class="flow-label">Select service</span></li>
+    <li><span class="flow-index">02</span><span class="flow-label">Join queue</span></li>
+    <li><span class="flow-index">03</span><span class="flow-label">Receive token</span></li>
+    <li><span class="flow-index">04</span><span class="flow-label">Track position</span></li>
+    <li><span class="flow-index">05</span><span class="flow-label">Queue advances</span></li>
+    <li><span class="flow-index">06</span><span class="flow-label">Near turn</span></li>
+    <li><span class="flow-index">07</span><span class="flow-label">Service</span></li>
+    <li><span class="flow-index">08</span><span class="flow-label">Complete</span></li>
+  </ol>
+</section>
+
+{% endblock %}
